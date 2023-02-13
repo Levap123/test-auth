@@ -11,11 +11,14 @@ services:
 
     ports:
       - 27017:27017
+
     healthcheck:
-      test: ["CMD-SHELL", "mongo --quiet --eval 'db.runCommand({ ping: 1 })'"]
-      interval: 5s
-      timeout: 5s
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
       retries: 5
+      start_period: 40s
+
     networks:
       - default
 
