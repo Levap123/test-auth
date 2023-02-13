@@ -26,7 +26,12 @@ Start the server
   docker-compose build
   docker-compose up
 ```
-http://localhost:8080/create-user 
+POST http://localhost:8080/create-user 
 
 
-http://localhost:8080/get-user/{email}
+GET http://localhost:8080/get-user/{email}
+
+
+POST http://localhost:5000/generate-salt
+
+
