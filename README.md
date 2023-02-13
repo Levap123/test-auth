@@ -26,4 +26,5 @@ Start the server
   docker-compose build
   docker-compose up
 ```
-
+http://localhost:8080/create-user 
+http://localhost:8080/get-user/{email}
