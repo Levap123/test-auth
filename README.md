@@ -11,7 +11,7 @@
 Clone the project
 
 ```bash
-  https://github.com/Levap123/test-auth
+  git clone https://github.com/Levap123/test-auth
 ```
 
 Go to the project directory
