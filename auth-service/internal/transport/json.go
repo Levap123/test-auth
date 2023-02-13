@@ -10,3 +10,8 @@ func sendJSON(w http.ResponseWriter, status int, response interface{}) error {
 	w.WriteHeader(status)
 	return json.NewEncoder(w).Encode(response)
 }
+
+func readJSON(r *http.Request, dest interface{}) error {
+	defer r.Body.Close()
+	return json.NewDecoder(r.Body).Decode(dest)
+}

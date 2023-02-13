@@ -2,11 +2,15 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 
+	"github.com/Levap123/auth-service/internal/repository"
+	"github.com/Levap123/auth-service/internal/repository/mongor"
 	"github.com/Levap123/auth-service/internal/service"
 	"github.com/Levap123/auth-service/internal/transport"
+	"github.com/Levap123/auth-service/internal/validator"
 )
 
 type App struct {
@@ -14,8 +18,14 @@ type App struct {
 }
 
 func NewApp() (*App, error) {
-	service := service.NewService()
-	transport := transport.NewTransport(service)
+	db, err := mongor.InitDb()
+	if err != nil {
+		return nil, fmt.Errorf("new app - %w", err)
+	}
+	repos := repository.NewRepoMongo(db)
+	service := service.NewService(repos)
+	validator := validator.NewValidator()
+	transport := transport.NewTransport(service, validator)
 	routes := transport.InitRoutes()
 	srv := &http.Server{
 		ReadTimeout:  3 * time.Second,

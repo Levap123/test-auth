@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+
+  mongodb:
+
+    image: mongo:latest
+
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      
+    ports:
+      - 27017:27017
+
+    networks:
+      - default
+
+
+
+  salt-gen-service:
+
+    build: salt-gen-service
+
+    ports:
+      - 5000:5000
+
+    user: root
+
+    networks:
+      - default
+
+
+
+  auth-service:
+
+    build: auth-service
+
+    depends_on:
+      - mongodb
+
+    ports:
+      - 8080:8080
+      
+    user: root
+
+    networks:
+      - default
+
